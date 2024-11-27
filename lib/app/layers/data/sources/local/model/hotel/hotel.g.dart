@@ -17,8 +17,8 @@ Hotel _$HotelFromJson(Map<String, dynamic> json) {
       contact: json['Contact'] as String? ?? '',
       noteEnglish: json['NoteEnglish'] as String? ?? '',
       noteKorean: json['NoteKorean'] as String? ?? '',
-      roadNameAdressEnglish: json['RoadNameAdressEnglish'] as String? ?? '',
-      roadNameAdressKorean: json['RoadNameAdressKorean'] as String? ?? '',
+      roadNameAdressEnglish: json['RoadNameAddressEnglish'] as String? ?? '',
+      roadNameAdressKorean: json['RoadNameAddressKorean'] as String? ?? '',
       numberOfRooms: json['NumberOfRooms'] as String? ?? '',
     );
     return item;

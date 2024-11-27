@@ -1,7 +1,6 @@
 import 'package:jejuya/app/core_impl/di/injector_impl.dart';
-import 'package:jejuya/app/layers/data/sources/local/model/destination/destination.dart';
-// import 'package:jejuya/app/layers/data/sources/local/model/destinationDetail/destinationDetail.dart';
 import 'package:jejuya/app/layers/data/sources/local/model/destination/destination_detail.dart';
+import 'package:jejuya/app/layers/data/sources/local/model/hotel/hotel.dart';
 import 'package:jejuya/app/layers/presentation/components/pages/create_schedule/create_schedule_controller.dart';
 import 'package:jejuya/app/layers/presentation/components/pages/create_schedule/create_schedule_page.dart';
 import 'package:jejuya/app/layers/presentation/components/pages/destination_detail/destination_detail_controller.dart';
@@ -169,9 +168,10 @@ class PredefinedPage {
       name: PredefinedRoute.destinationDetail,
       // page: () => nav.destinationDetail,
       page: () {
-        final id =
-            Uri.tryParse(Get.currentRoute)!.queryParameters['destination_id']!;
-        return nav.destinationDetail(destinationId: id);
+        // final destinationDetail = Uri.tryParse(Get.currentRoute)!
+        //     .queryParameters['destinationDetail']!;
+        final destinationDetail = Get.arguments;
+        return nav.destinationDetail(destinationDetail: destinationDetail);
       },
     ),
     GetPageEnsureAuth(
@@ -266,11 +266,11 @@ extension NavPredefined on navi.Navigator {
   //       child: const DestinationDetailPage(),
   //     );
   Widget destinationDetail({
-    required String? destinationId,
+    required DestinationDetail? destinationDetail,
   }) =>
       BaseProvider(
         ctrl: DestinationDetailController(
-          destinationId: destinationId,
+          destinationDetail: destinationDetail,
         ),
         child: const DestinationDetailPage(),
       );
@@ -354,14 +354,14 @@ extension ToPagePredefined on navi.Navigator {
 
   /// Navigate to the home page.
   Future<T?>? toDestinationDetail<T>({
-    required String? destinationId,
+    required DestinationDetail destinationDetail,
   }) =>
       toNamed(
         PredefinedRoute.destinationDetail.replaceAll(
           '.*',
-          'destination_id=$destinationId',
+          'destinationDetail=${destinationDetail.toJson()}',
         ),
-        arguments: {destinationId, destinationDetail},
+        arguments: destinationDetail,
       );
 
   Future<T?>? toNotificationDetail<T>({required num? notificationId}) =>
@@ -409,10 +409,16 @@ extension DialogPredefined on navi.Navigator {
 //         routeName: 'sheet-main',
 //       );
   /// Show destination info sheet
-  Future<T?>? showDetinationInfoSheet<T>({Destination? destination}) {
+  Future<T?>? showDetinationInfoSheet<T>({
+    DestinationDetail? destinationDetail,
+    Hotel? hotel,
+  }) {
     return bottomSheet(
       BaseProvider(
-        ctrl: DestinationInfoController(destination: destination),
+        ctrl: DestinationInfoController(
+          destinationDetail: destinationDetail,
+          hotel: hotel,
+        ),
         child: const DestinationInfoSheet(),
       ),
       routeName: PredefinedRoute.destinationInfo,
