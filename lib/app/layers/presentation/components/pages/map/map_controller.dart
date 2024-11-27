@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
-
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
@@ -183,6 +181,10 @@ class MapController extends BaseController with UseCaseProvider {
             _centerOnPosition(selectedMarkerPosition.value);
             _fetchNearbyDestinations();
             _updateMarkers();
+
+            nav.showDetinationInfoSheet(
+              hotel: hotel,
+            );
           });
     }).toList();
 
@@ -197,7 +199,10 @@ class MapController extends BaseController with UseCaseProvider {
         icon: touristMarkerIcon.value,
         zIndex: 2,
         onTap: () async {
-          nav.showDetinationInfoSheet(destination: destination);
+          final detail = await _fetchDestinationDetail(destination.id);
+          nav.showDetinationInfoSheet(
+            destinationDetail: detail,
+          );
         },
       );
     }).toList();

@@ -166,7 +166,7 @@ class FavoritePage extends StatelessWidget
         builder: (context) {
           return Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: 0,
               itemBuilder: (context, index) {
                 return _scheduleItem(index);
               },
@@ -178,7 +178,7 @@ class FavoritePage extends StatelessWidget
         builder: (context) {
           return Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: 0,
               itemBuilder: (context, index) {
                 return _destinationItem(index);
               },

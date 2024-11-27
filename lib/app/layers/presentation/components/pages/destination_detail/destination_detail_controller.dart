@@ -12,17 +12,17 @@ import 'package:jejuya/core/reactive/dynamic_to_obs_data.dart';
 class DestinationDetailController extends BaseController with UseCaseProvider {
   /// Default constructor for the DestinationDetailController.
   DestinationDetailController({
-    required this.destinationId,
+    required this.destinationDetail,
   }) {
-    fetchDestinationDetail();
+    //fetchDestinationDetail();
   }
   // --- Member Variables ---
-  String? destinationId;
+  DestinationDetail? destinationDetail;
 
   // --- Member Variables ---
   // DestinationDetail? destinationDetail;
   // --- Computed Variables ---
-  final destinationDetail = listenableStatus<DestinationDetail?>(null);
+  //final destinationDetail = listenableStatus<DestinationDetail?>(null);
 
   // --- State Computed ---
   // --- Usecases ---
@@ -30,30 +30,6 @@ class DestinationDetailController extends BaseController with UseCaseProvider {
 
   final fetchDetailState =
       listenable<DestinationDetailState>(DestinationDetailState.none);
-
-  late final _fetchDestinationDetail = usecase<DestinationDetailUseCase>();
-
-  Future<void> fetchDestinationDetail() async {
-    try {
-      fetchDetailState.value = DestinationDetailState.loading;
-
-      if (destinationId == null) return;
-      await _fetchDestinationDetail
-          .execute(
-            DestinationDetailRequest(destinationId: destinationId),
-          )
-          .then((response) => response.destinationDetail)
-          .assignTo(destinationDetail);
-      fetchDetailState.value = DestinationDetailState.done;
-    } catch (e, s) {
-      log.error(
-        '[DestinationDetailController] Failed to fetch detail:',
-        error: e,
-        stackTrace: s,
-      );
-      nav.showSnackBar(error: e);
-    }
-  }
 
   List<String> categoryConvert(String category) {
     print(category);

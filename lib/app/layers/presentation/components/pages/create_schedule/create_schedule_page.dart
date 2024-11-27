@@ -400,7 +400,7 @@ class CreateSchedulePage extends StatelessWidget
   Widget _destinationItem(Destination destination, int index) => Observer(
         builder: (context) {
           return GestureDetector(
-            onTap: () => nav.showDetinationInfoSheet(destination: destination),
+            //onTap: () => nav.showDetinationInfoSheet(destination: destination),
             child: Container(
               decoration: BoxDecoration(
                 color: context.color.white,
