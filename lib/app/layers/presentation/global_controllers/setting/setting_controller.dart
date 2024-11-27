@@ -21,7 +21,7 @@ class SettingController extends BaseController {
   /// The setting of current language
   final language = ObsSetting<LanguageSupported>(
     key: LSKeyPredefinedExt.language,
-    initValue: LanguageSupported.korean,
+    initValue: LanguageSupported.english,
   );
 
   /// The setting of current theme
