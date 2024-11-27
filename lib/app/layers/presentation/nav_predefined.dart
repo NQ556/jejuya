@@ -168,15 +168,16 @@ class PredefinedPage {
       name: PredefinedRoute.destinationDetail,
       // page: () => nav.destinationDetail,
       page: () {
-        // final destinationDetail = Uri.tryParse(Get.currentRoute)!
-        //     .queryParameters['destinationDetail']!;
         final destinationDetail = Get.arguments;
         return nav.destinationDetail(destinationDetail: destinationDetail);
       },
     ),
     GetPageEnsureAuth(
       name: PredefinedRoute.createSchedule,
-      page: () => nav.createSchedule,
+      page: () {
+        final hotel = Get.arguments;
+        return nav.createSchedule(hotel: hotel);
+      },
     ),
     GetPageEnsureAuth(
       name: PredefinedRoute.profileSetting,
@@ -282,8 +283,8 @@ extension NavPredefined on navi.Navigator {
       );
 
   /// Create schedule page widget.
-  Widget get createSchedule => BaseProvider(
-        ctrl: CreateScheduleController(),
+  Widget createSchedule({required Hotel? hotel}) => BaseProvider(
+        ctrl: CreateScheduleController(hotel: hotel),
         child: const CreateSchedulePage(),
       );
 
@@ -372,8 +373,15 @@ extension ToPagePredefined on navi.Navigator {
       );
 
   /// Navigate to create schedule page.
-  Future<T?>? toCreateSchedule<T>() => toNamed(
-        PredefinedRoute.createSchedule,
+  Future<T?>? toCreateSchedule<T>({
+    Hotel? hotel,
+  }) =>
+      toNamed(
+        PredefinedRoute.createSchedule.replaceAll(
+          '.*',
+          'hotel=${hotel!.toJson()}',
+        ),
+        arguments: hotel,
       );
 
   Future<T?>? toProfileSetting<T>() => toNamed(
@@ -448,10 +456,12 @@ extension DialogPredefined on navi.Navigator {
   }
 
   /// Show select destination sheet
-  Future<T?>? showSelectDestinationSheet<T>() {
+  Future<T?>? showSelectDestinationSheet<T>({
+    Hotel? hotel,
+  }) {
     return bottomSheet(
       BaseProvider(
-        ctrl: SelectDestinationController(),
+        ctrl: SelectDestinationController(hotel: hotel),
         child: const SelectDestinationSheet(),
       ),
       routeName: PredefinedRoute.destinationInfo,

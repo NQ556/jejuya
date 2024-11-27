@@ -145,6 +145,7 @@ class CreateSchedulePage extends StatelessWidget
       });
 
   Widget get _infoDisplay => Builder(builder: (context) {
+        final ctrl = controller(context);
         return Column(
           children: [
             _inputField(
@@ -157,7 +158,7 @@ class CreateSchedulePage extends StatelessWidget
             ),
             _inputField(
               controller(context).locationController,
-              tr("create_schedule.accommodation"),
+              ctrl.accomodation.value,
               context.color.info,
               1,
               12.spMin,

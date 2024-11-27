@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jejuya/app/common/ui/image/image_local.dart';
 import 'package:jejuya/app/common/utils/extension/num/adaptive_size.dart';
+import 'package:jejuya/app/layers/data/sources/local/model/hotel/hotel.dart';
 import 'package:jejuya/app/layers/presentation/components/pages/map/mockup/hotel_location_mockup_api.dart';
 import 'package:jejuya/app/layers/presentation/components/pages/map/mockup/tourist_location_mockup_api.dart';
 import 'package:jejuya/core/arch/domain/usecase/usecase_provider.dart';
@@ -13,7 +14,9 @@ import 'package:jejuya/core/reactive/dynamic_to_obs_data.dart';
 /// Controller for the Select destination sheet
 class SelectDestinationController extends BaseController with UseCaseProvider {
   /// Default constructor for the SelectDestinationController.
-  SelectDestinationController() {
+  SelectDestinationController({
+    required this.hotel,
+  }) {
     initialize();
   }
 
@@ -27,6 +30,7 @@ class SelectDestinationController extends BaseController with UseCaseProvider {
   }
 
   // --- Member Variables ---
+  Hotel? hotel;
 
   /// Search Controller
   final TextEditingController searchController = TextEditingController();

@@ -59,6 +59,7 @@ class MapController extends BaseController with UseCaseProvider {
   final currentMarkerIcon = listenable<BitmapDescriptor>(
     BitmapDescriptor.defaultMarker,
   );
+
   final radiusInMeters = listenable<double>(5000.0);
   final isRadiusSliderVisible = listenable<bool>(false);
   final selectedMarkerPosition =
