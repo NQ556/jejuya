@@ -120,7 +120,7 @@ class DestinationInfoSheet extends StatelessWidget
                 height: 45.rMin,
                 onPressed: () {
                   if (ctrl.hotel != null) {
-                    nav.toCreateSchedule();
+                    nav.toCreateSchedule(hotel: ctrl.hotel!);
                   }
                 },
                 leading: Container(

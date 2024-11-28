@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jejuya/app/app.dart';
 import 'package:jejuya/app/core_impl/di/injector_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
+import 'package:jejuya/app/layers/data/sources/local/model/hotel/hotel.dart';
 import 'package:jejuya/firebase_options.dart';
 
 Future<void> main() async {
@@ -25,6 +27,11 @@ Future<void> main() async {
       ),
     );
   }
+
+  await Hive.initFlutter();
+
+  // Register adapters
+  Hive.registerAdapter(HotelAdapter());
 
   runApp(
     FutureBuilder(
